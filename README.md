@@ -1,1 +1,1 @@
-# Hackerrank-SQL-Challenge
+# HackerRank SQL Challenge
