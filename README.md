@@ -4,7 +4,7 @@
 
 ### Database Table
 
-![Employee-Department-Table]()
+![Employee-Department-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Images/Employee-Department-Table.PNG)
 
 > Problem 01: Return Employee record with max salary.
 
