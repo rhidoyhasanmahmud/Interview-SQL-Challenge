@@ -51,7 +51,7 @@ WHERE salary IN (SELECT MAX(salary) FROM employee GROUP BY department_id)
 
 #### Tables
 
-![Employee-Department-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Images/Student-table.PNG)
+![Student-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Images/Student-table.PNG)
 
 > Find the ID, Name of all students.
 ```sql
@@ -81,3 +81,44 @@ SELECT COUNT(ID)
 FROM student
 WHERE department='CSE';
 ```
+
+## Challenge - 03 (Problems and Solutions)
+
+#### Tables
+
+![Employee-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Images/Employee-Table.PNG)
+
+> Fetch the count of employees working in project 'P1'
+```sql
+SELECT COUNT(*) 
+from employee_salary 
+WHERE project='P1'
+```
+> Fetch Employee names having salary greater than or equal to 25000 and less than or equal 35000.
+```sql
+SELECT name 
+FROM employee_details
+WHERE id 
+IN
+(SELECT employee_id 
+ FROM employee_salary
+ WHERE salary 
+ BETWEEN
+ 25000 AND 35000)
+```
+```sql
+SELECT ed.name 
+FROM employee_details AS ed
+INNER JOIN employee_salary AS es 
+ON ed.id = es.employee_id
+WHERE 
+(es.salary>=25000 and es.salary<=35000)
+```
+> Fetch project-wise count of employees sorted by projects count in descending order
+```sql
+SELECT project, COUNT(employee_id) AS Total_Project
+FROM employee_salary
+GROUP BY project
+ORDER BY Total_Project DESC
+```
+
