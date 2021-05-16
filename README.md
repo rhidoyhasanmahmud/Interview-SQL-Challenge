@@ -1,124 +1,138 @@
-# Interview SQL Challenge
+### Things To Know
 
-## Challenge - 01 (Problems and Solutions)
+- SQL stands for Structured Query Language. It’s a standard language for accessing and manipulating databases.
+- MySQL is a database management system, like SQL Server, Oracle, Informix, Postgres, etc.
+- MySQL is a RDMS (Relational Database Management System).
 
-#### Tables
+MS SQL : Microsoft’s Implementation of SQL
 
-![Employee-Department-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Images/Employee-Department-Table.PNG)
+Oracle SQL : Oracle's Implementation of SQL
 
-> Problem 01: Return Employee record with max salary.
-```sql
-SELECT * 
-FROM employee
-WHERE salary = (SELECT MAX(salary) FROM employee);
-```
-> Problem 02: Select Highest salary in employee table.
-```sql
-SELECT MAX(salary) FROM employee;
-```
-> Problem 03: Select Second Highest Salary in employee table.
-```sql
-SELECT MAX(salary) 
-FROM employee
-WHERE salary NOT IN (SELECT MAX(salary) FROM employee)
-```
-> Problem 04: Select range of Employee based on ID.
-```sql
-SELECT * 
-FROM employee
-WHERE employee_id BETWEEN 2000 and 2003;
-```
-> Problem 05: Return Employee name, highest salary and department.
-```sql
-SELECT e.first_name, e.last_name, e.salary, d.department_name
-FROM employee AS e
-INNER JOIN department AS d 
-ON (e.department_id = d.department_id)
--- WHERE salary = (SELECT MAX(salary) FROM employee)
-WHERE salary IN (SELECT MAX(salary) FROM employee)
-```
-> Problem 06: Return Highest salary, employee name, department name for each department.
-```sql
-SELECT e.first_name, e.last_name, e.salary, d.department_name
-FROM employee AS e
-INNER JOIN department AS d 
-ON (e.department_id = d.department_id)
--- WHERE salary = (SELECT MAX(salary) FROM employee  GROUP BY department_id)
-WHERE salary IN (SELECT MAX(salary) FROM employee GROUP BY department_id)
-```
+MySQL : Sun Systems Implementation of SQL (Open Source) later on supported by Oracle Corporation.
 
-## Challenge - 02 (Problems and Solutions)
+PostgreSQL : Another open source Implementation.
 
-#### Tables
+There are many others from other vendors too. DB2 -IBM, Sybase, Ingress, Informix etc.,
 
-![Student-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Images/Student-table.PNG)
+### How does an SQL query work?
 
-> Find the ID, Name of all students.
-```sql
-SELECT ID, Name 
-FROM student;
-```
-> Find the ID, Name of all students of CSE department.
-```sql
-SELECT ID, Name 
-FROM student
-WHERE department='CSE';
-```
-> Find the lowest CGPA from all students.
-```sql
-SELECT MIN(cgpa) 
-FROM student
-```
-> Find the highest CGPA of CSE department.
-```sql
-SELECT MAX(cgpa) 
-FROM student
-WHERE department='CSE';
-```
-> Find the total number of students of CSE department.
-```sql
-SELECT COUNT(ID) 
-FROM student
-WHERE department='CSE';
-```
+SQL execution order:
 
-## Challenge - 03 (Problems and Solutions)
+FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> DISTINCT -> ORDER BY -> LIMIT .
 
-#### Tables
+SQL Query mainly works in three phases .
 
-![Employee-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Images/Employee-Table.PNG)
+1) Row filtering - Phase 1: Row filtering - phase 1 are done by FROM, WHERE , GROUP BY , HAVING clause.
 
-> Fetch the count of employees working in project 'P1'
-```sql
-SELECT COUNT(*) 
-from employee_salary 
-WHERE project='P1'
-```
-> Fetch Employee names having salary greater than or equal to 25000 and less than or equal 35000.
-```sql
-SELECT name 
-FROM employee_details
-WHERE id 
-IN
-(SELECT employee_id 
- FROM employee_salary
- WHERE salary 
- BETWEEN
- 25000 AND 35000)
-```
-```sql
-SELECT ed.name 
-FROM employee_details AS ed
-INNER JOIN employee_salary AS es 
-ON ed.id = es.employee_id
-WHERE 
-(es.salary>=25000 and es.salary<=35000)
-```
-> Fetch project-wise count of employees sorted by projects count in descending order
-```sql
-SELECT project, COUNT(employee_id) AS Total_Project
-FROM employee_salary
-GROUP BY project
-ORDER BY Total_Project DESC
-```
+2) Column filtering: Columns are filtered by SELECT clause.
+
+3) Row filtering - Phase 2: Row filtering - phase 2 are done by DISTINCT , ORDER BY , LIMIT clause.
+
+In here i will explain with an example . Suppose we have a students table as follows:
+
+| id_	| name_	| marks	| section |
+| ------------ |---------------| -----|-------|
+|1|	Julia	|88|	A|
+|2|	Samantha|	68	|B|
+|3|	Maria	|10|	C|
+|4|	Scarlet	|78	|A|
+|5|	Ashley	|63|	B|
+|6|	Abir|	95|	D|
+|7|	Jane|	81|	A|
+|8|	Jahid|	25|	C|
+|9|	Sohel|	90|	D|
+|10|	Rahim	|80|	A|
+|11|	Karim	|81	|B|
+|12|	Abdullah	|92	|D|
+
+Now we run the following sql query:
+> select section_,sum(marks) from students where id_<10 GROUP BY section_ having sum(marks)>100 order by section_ LIMIT 2;
+
+Output of the query is:
+
+|section_|	sum|
+|----|------|
+|A|	247|
+|B|	131|
+
+But how we got this output ?
+
+I have explained the query step by step . Please read bellow:
+
+1. FROM , WHERE clause execution 
+   
+Hence, from clause works first therefore from students where id_<10 query will eliminate rows which has id_ greater than or equal to 10 . So the following rows remains after executing from students where id_<10 .
+
+|id_|	name_|	marks|	section|
+|-----|----|----|----|
+|1|	Julia	|88	|A|
+|2|	Samantha	|68|	B
+|3|	Maria	|10	|C|
+|4|	Scarlet	|78	|A|
+|5|	Ashley	|63	|B|
+|6|	Abir	|95	|D|
+|7|	Jane	|81	|A|
+|8|	Jahid	|25	|C|
+|9|	Sohel	|90	|D |  
+
+2. GROUP BY clause execution 
+   
+Now GROUP BY clause will come , that's why after executing GROUP BY section_ rows will make group like bellow:
+
+|id_|	name_|	marks|	section|
+|-----|----|----|----|
+|9|	Sohel	|90	|D|
+|6|	Abir	|95	|D|
+|1|	Julia	|88	|A|
+|4|	Scarlet	|78	|A|
+|7|	Jane	|81	|A|
+|2|	Samantha|	68|	B|
+|5|	Ashley	|63|	B|
+|3|	Maria	|10|	C|
+|8|	Jahid	|25|	C|
+
+3. HAVING clause execution
+   
+Having sum(marks)>100 will eliminate groups . sum(marks) of D group is 185 , sum(marks) of A groupd is 247 , sum(marks) of B group is 131 , sum(marks) of C group is 35 . So we can see tha C groups's sum is not greater than 100 . So group C will be eliminated . So the table looks like this:
+
+|id_|	name_|	marks|	section|
+|-----|----|----|----|
+|9|	Sohel	|90|	D|
+|6|	Abir	|95	|D|
+|1|	Julia	|88|	A|
+|4|	Scarlet	|78	|A|
+|7|	Jane	|81|	A|
+|2|	Samantha|	68	|B|
+|5|	Ashley	|63|	B|
+
+3. SELECT clause execution
+   
+Select section_,sum(marks) query will only decide which columns to prints . It is decided to print section_ and sum(marks) column .
+
+|section_	|sum|
+|-----|----|
+|D|	185|
+|A|	245|
+|B|	131|
+
+4. ORDER BY clause execution
+   
+Order by section_ query will sort the rows ascending order.
+
+|section_|	sum|
+|-----|----|
+|A	|245|
+|B|	131|
+|D|	185|
+
+5. LIMIT clause execution
+   
+LIMIT 2; will only print first 2 rows.
+
+|section_	|sum|
+|-----|----|
+|A	|245|
+|B	|131|
+
+This is how we got our final output .
 
