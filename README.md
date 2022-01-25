@@ -134,5 +134,5 @@ LIMIT 2; will only print first 2 rows.
 |A	|245|
 |B	|131|
 
-This is how we got our final output .
+This is how we got our final output.
 
