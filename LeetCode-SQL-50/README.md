@@ -9,3 +9,4 @@ Problem List:
 3. [595](https://leetcode.com/problems/big-countries/) : [Solution](Solutions/595.md)
 4. [1148](https://leetcode.com/problems/article-views-i/) : [Solution](Solutions/1148.md)
 5. [1683](https://leetcode.com/problems/invalid-tweets/) : [Solution](Solutions/1683.md)
+6. [1378](https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/) : [Solution](Solutions/1378.md)
