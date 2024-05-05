@@ -4,7 +4,7 @@
 
 #### Tables
 
-![Employee-Department-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Interview_Question_Set/Images/Employee-Department-Table.PNG)
+![Employee-Department-Table](/Interview-SQL-Challenges/Images/Employee-Department-Table.PNG)
 
 > Problem 01: Return Employee record with max salary.
 ```sql
@@ -51,7 +51,7 @@ WHERE salary IN (SELECT MAX(salary) FROM employee GROUP BY department_id)
 
 #### Tables
 
-![Student-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Interview_Question_Set/Images/Student-table.PNG)
+![Student-Table](/Interview-SQL-Challenges/Images/Student-table.PNG)
 
 > Find the ID, Name of all students.
 ```sql
@@ -86,7 +86,7 @@ WHERE department='CSE';
 
 #### Tables
 
-![Employee-Table](https://github.com/CodeMechanix/Interview-SQL-Challenge/blob/master/Interview_Question_Set/Images/Employee-Table.PNG)
+![Employee-Table](/Interview-SQL-Challenges/Images/Employee-Table.PNG)
 
 > Fetch the count of employees working in project 'P1'
 ```sql
