@@ -10,3 +10,4 @@ Problem List:
 4. [1148](https://leetcode.com/problems/article-views-i/) : [Solution](Solutions/1148.md)
 5. [1683](https://leetcode.com/problems/invalid-tweets/) : [Solution](Solutions/1683.md)
 6. [1378](https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/) : [Solution](Solutions/1378.md)
+7. [1068](https://leetcode.com/problems/product-sales-analysis-i/) : [Solution](Solutions/1068.md)
